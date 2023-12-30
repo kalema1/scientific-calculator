@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="index.js"></script>
+    <title>calculator</title>
+  </head>
+  <body>
+    <section class="app-section">
+      <div class="app-container">
+        <input type="text" class="display" readonly />
+        <div class="app-inner-box">
+          <div class="app-header">
+            <p class="main-function">main</p>
+            <p class="abc">abc</p>
+            <p class="other-function">func</p>
+            <div class="rad-deg">
+              <label class="switch">
+                <input type="checkbox" />
+                <span class="slider"
+                  ><p class="rad">RAD</p>
+                  <p class="deg">DEG</p></span
+                >
+              </label>
+            </div>
+            <p class="clear-all">clear all</p>
+          </div>
+          <div class="app-buttons">
+            <div class="app-button-section1">
+              <button class="operators">a<sup>2</sup></button>
+              <button class="operators">a<sup>b</sup></button>
+              <button class="operators">|a|</button>
+              <button class="operators">&#x221A;</button>
+              <button class="operators"><sup>y</sup>&#x221A;</button>
+              <button class="operators">&#x03C0;</button>
+              <button class="operators">sin</button>
+              <button class="operators">cos</button>
+              <button class="operators">tan</button>
+              <button class="operators">(</button>
+              <button class="operators">)</button>
+              <button class="operators">,</button>
+            </div>
+            <div class="app-button-section2">
+              <button class="numbers">7</button>
+              <button class="numbers">8</button>
+              <button class="numbers">9</button>
+              <button class="operators">/</button>
+              <button class="numbers">4</button>
+              <button class="numbers">5</button>
+              <button class="numbers">6</button>
+              <button class="operators">x</button>
+              <button class="numbers">1</button>
+              <button class="numbers">2</button>
+              <button class="numbers">3</button>
+              <button class="operators">-</button>
+              <button class="numbers">0</button>
+              <button class="operators">.</button>
+              <button class="operators">ans</button>
+              <button class="operators">+</button>
+            </div>
+            <div class="app-button-section3">
+              <button class="operators">%</button>
+              <button class="operators">a/b</button>
+              <button class="left-shift">&#8592;</button>
+              <button class="right-shift">&#8594;</button>
+              <button class="delete">DEL</button>
+              <button class="equal">=</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

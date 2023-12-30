@@ -1,0 +1,194 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-weight: 500;
+}
+
+html {
+  font-size: 62.5%;
+}
+body {
+  background-color: #020617;
+}
+
+.app-section {
+  max-width: 65rem;
+  margin: 0 auto;
+  font-size: 1.6rem;
+}
+.app-container {
+  margin-top: 3rem;
+  border: 1.5px solid #888;
+}
+.app-inner-box {
+  background-color: #e5e7eb;
+}
+.display {
+  width: 100%;
+  height: 6.4rem;
+  border: 1.5px solid #888;
+}
+.display:focus {
+  outline: 2px solid #1d4ed8;
+}
+.app-header {
+  padding: 1rem 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 9rem;
+  height: 3rem;
+  border-radius: 0.5rem;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  border-radius: 0.5rem;
+}
+
+.slider {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 3rem;
+  width: 50%;
+  border-radius: 0.5rem;
+  left: 0;
+  bottom: 0;
+  background-color: #d1d5db;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: white;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px white;
+}
+
+input:checked + .slider:before {
+  transform: translateX(100%);
+}
+.rad {
+  margin-left: 0.5rem;
+  font-size: 1.4rem;
+}
+.deg {
+  margin-right: 0.5rem;
+  font-size: 1.4rem;
+}
+
+.app-buttons {
+  padding: 1rem;
+  padding-top: 0;
+  display: grid;
+  grid-template-columns: 1fr 1.35fr 0.65fr;
+  gap: 2rem;
+}
+.app-button-section1 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+.app-button-section2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+.app-button-section3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+button {
+  max-width: 6rem;
+  height: 6rem;
+  border: none;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.operators {
+  background-color: white;
+}
+.numbers,
+.delete,
+.left-shift,
+.right-shift {
+  background-color: #9ca3af;
+}
+.operators:hover,
+.numbers:hover,
+.delete:hover,
+.left-shift:hover,
+.right-shift:hover {
+  /* background-color: #e5e7eb; */
+  opacity: 0.8;
+}
+p {
+  cursor: pointer;
+  transition: 0.3s;
+}
+.main-function {
+  padding: 0 1rem 1rem 1rem;
+  box-shadow: 0px -5px 0px 0px #1d4ed8 inset;
+}
+
+.other-function,
+.abc {
+  padding: 0 1rem 1rem 1rem;
+  transition: 0.3s;
+}
+.other-function:hover,
+.abc:hover {
+  box-shadow: 0px -5px 0px 0px #1d4ed8 inset;
+}
+.clear-all {
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  transition: 0.3s;
+}
+.clear-all:hover {
+  background-color: #9ca3af;
+}
+.delete {
+  grid-column: span 2;
+  max-width: 100%;
+}
+.equal {
+  grid-column: span 2;
+  max-width: 100%;
+  background-color: #1d4ed8;
+  color: white;
+  font-weight: 600;
+  font-size: 3rem;
+  transition: 0.3s;
+}
+.equal:hover {
+  background-color: #3b82f6;
+}
