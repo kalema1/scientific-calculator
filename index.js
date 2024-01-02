@@ -4,11 +4,13 @@ const operatorsElement = document.querySelectorAll(".operators");
 const equalElement = document.querySelector(".equal");
 const leftBracketElement = document.querySelector(".left-bracket");
 const rightBracketElement = document.querySelector(".right-bracket");
+const answerElement = document.querySelector(".answer");
 
 let display = "";
 let results = "";
 let hasDot = false;
 let hasOperator = false;
+let answer;
 
 numbersElement.forEach((number) => {
   number.addEventListener("click", (e) => {
@@ -48,14 +50,20 @@ operatorsElement.forEach((operator) => {
 equalElement.addEventListener("click", () => {
   try {
     if (!display) return;
+
     if (display.includes("x")) {
       display = display.replaceAll("x", "*");
     }
     if (display.includes(String.fromCharCode(247))) {
       display = display.replaceAll(String.fromCharCode(247), "/");
     }
+    if (display.includes("ans")) {
+      display = display.replaceAll("ans", answer);
+    }
+
     results = eval(display);
     displayElement.value = results;
+    answer = results;
     display = "";
   } catch (err) {
     results = "SYNTAX ERROR";
@@ -64,16 +72,21 @@ equalElement.addEventListener("click", () => {
 });
 
 leftBracketElement.addEventListener("click", (e) => {
-  display += e.target.innerText;
-  displayElement.value = display;
-});
-rightBracketElement.addEventListener("click", (e) => {
-  if (display.at(-1) === ")") {
+  if (display.slice(-1) === ")") {
     display += "x(";
   } else {
     display += e.target.innerText;
   }
 
+  displayElement.value = display;
+});
+rightBracketElement.addEventListener("click", (e) => {
+  display += e.target.innerText;
+  displayElement.value = display;
+});
+
+answerElement.addEventListener("click", (e) => {
+  display += e.target.innerText;
   displayElement.value = display;
 });
 
