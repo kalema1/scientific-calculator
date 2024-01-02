@@ -28,7 +28,11 @@ body {
   width: 100%;
   height: 6.4rem;
   border: 1.5px solid #888;
+  font-size: 2.4rem;
+  font-weight: 600;
+  text-align: right;
 }
+
 .display:focus {
   outline: 2px solid #1d4ed8;
 }
@@ -179,6 +183,8 @@ p {
 .delete {
   grid-column: span 2;
   max-width: 100%;
+  font-size: 3rem;
+  font-weight: 700;
 }
 .equal {
   grid-column: span 2;
