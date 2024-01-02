@@ -5,6 +5,15 @@ const equalElement = document.querySelector(".equal");
 const leftBracketElement = document.querySelector(".left-bracket");
 const rightBracketElement = document.querySelector(".right-bracket");
 const answerElement = document.querySelector(".answer");
+const squareNumberElement = document.querySelector(".square-number");
+const powerElement = document.querySelector(".power");
+const magnitudeElement = document.querySelector(".magnitude");
+const squarerootElement = document.querySelector(".square-root");
+const nthrootElement = document.querySelector(".nth-root");
+const piElement = document.querySelector(".pi");
+const trigonometryElement = document.querySelectorAll(".trigonometry");
+const clearElement = document.querySelector(".clear-all");
+const deleteElement = document.querySelector(".delete");
 
 let display = "";
 let results = "";
@@ -86,7 +95,52 @@ rightBracketElement.addEventListener("click", (e) => {
 });
 
 answerElement.addEventListener("click", (e) => {
+  if (!display) return;
   display += e.target.innerText;
+  displayElement.value = display;
+});
+
+squareNumberElement.addEventListener("click", () => {
+  if (!display) return;
+  display += "²";
+  displayElement.value = display;
+});
+
+powerElement.addEventListener("click", () => {
+  if (!display) return;
+  display += "^";
+  displayElement.value = display;
+});
+
+magnitudeElement.addEventListener("click", () => {
+  display += "|";
+  displayElement.value = display;
+});
+
+squarerootElement.addEventListener("click", () => {
+  display += String.fromCharCode(8730);
+  displayElement.value = display;
+});
+
+piElement.addEventListener("click", () => {
+  display += String.fromCharCode(960);
+  displayElement.value = display;
+});
+
+trigonometryElement.forEach((trig) => {
+  trig.addEventListener("click", (e) => {
+    display += e.target.innerText + "(";
+    displayElement.value = display;
+  });
+});
+
+clearElement.addEventListener("click", () => {
+  display = "";
+  displayElement.value = "";
+});
+
+deleteElement.addEventListener("click", () => {
+  display = display.slice(0, -1);
   displayElement.value = display;
 });
 
