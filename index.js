@@ -93,6 +93,13 @@ equalElement.addEventListener("click", () => {
       display = display.replaceAll("ans", answer);
     }
 
+    if (display.includes(String.fromCharCode(8730) + "(")) {
+      display = display.replaceAll(
+        String.fromCharCode(8730) + "(",
+        "Math.sqrt("
+      );
+    }
+
     results = eval(display);
     displayElement.value = results;
     answer = results;
@@ -141,7 +148,7 @@ magnitudeElement.addEventListener("click", () => {
 });
 
 squarerootElement.addEventListener("click", () => {
-  display += String.fromCharCode(8730);
+  display += String.fromCharCode(8730) + "(";
   displayElement.value = display;
 });
 
