@@ -14,12 +14,15 @@ const piElement = document.querySelector(".pi");
 const trigonometryElement = document.querySelectorAll(".trigonometry");
 const clearElement = document.querySelector(".clear-all");
 const deleteElement = document.querySelector(".delete");
+const radianElement = document.querySelector(".toggle-checkox");
 
 let display = "";
 let results = "";
 let hasDot = false;
 let hasOperator = false;
 let answer;
+let isRadian = false;
+let radian = Math.PI / 180;
 const OPERATORS = ["+", "-", "x", String.fromCharCode(247)];
 
 numbersElement.forEach((number) => {
@@ -98,6 +101,17 @@ equalElement.addEventListener("click", () => {
         String.fromCharCode(8730) + "(",
         "Math.sqrt("
       );
+    }
+
+    if (display.includes("sin(")) {
+      display = display.replaceAll("sin(", "getTrigonometry(Math.sin,");
+    }
+
+    if (display.includes("cos(")) {
+      display = display.replaceAll("sin(", "getTrigonometry(Math.cos,");
+    }
+    if (display.includes("tan(")) {
+      display = display.replaceAll("sin(", "getTrigonometry(Math.tan,");
     }
 
     results = eval(display);
@@ -223,4 +237,24 @@ function powerBaseGetter(display, powerSearchResults, keyword) {
   });
 
   return powerBases;
+}
+
+/* radian implementation */
+radianElement.addEventListener("click", () => {
+  isRadian = !isRadian;
+  //console.log(isRadian);
+});
+
+/*
+ * returns the callack method of the trigonometry
+ * @param {function} callack
+ * @param {number} angle
+ * @returns {function}
+ */
+function getTrigonometry(callack, angle) {
+  if (!isRadian) {
+    angle = angle * radian;
+  }
+
+  return callack(angle);
 }
