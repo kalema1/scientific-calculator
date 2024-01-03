@@ -20,6 +20,7 @@ let results = "";
 let hasDot = false;
 let hasOperator = false;
 let answer;
+const OPERATORS = ["+", "-", "x", String.fromCharCode(247)];
 
 numbersElement.forEach((number) => {
   number.addEventListener("click", (e) => {
@@ -60,6 +61,28 @@ equalElement.addEventListener("click", () => {
   try {
     if (!display) return;
 
+    let powerSearchResults = searchOperator(display, "²");
+    let powerExponentialSearchResults = searchOperator(display, "^(");
+
+    /* get power bases */
+    const bases = powerBaseGetter(display, powerSearchResults, "²");
+    const exponetialBases = powerBaseGetter(
+      display,
+      powerExponentialSearchResults,
+      "^("
+    );
+    bases.forEach((base) => {
+      let toReplace = base + "²";
+      let replacement = "Math.pow(" + base + ",2)";
+      display = display.replace(toReplace, replacement);
+    });
+
+    exponetialBases.forEach((base) => {
+      let toReplace = base + "^(";
+      let replacement = "Math.pow(" + base + ",";
+      display = display.replace(toReplace, replacement);
+    });
+
     if (display.includes("x")) {
       display = display.replaceAll("x", "*");
     }
@@ -77,6 +100,7 @@ equalElement.addEventListener("click", () => {
   } catch (err) {
     results = "SYNTAX ERROR";
     displayElement.value = results;
+    console.log(err);
   }
 });
 
@@ -95,7 +119,6 @@ rightBracketElement.addEventListener("click", (e) => {
 });
 
 answerElement.addEventListener("click", (e) => {
-  if (!display) return;
   display += e.target.innerText;
   displayElement.value = display;
 });
@@ -108,7 +131,7 @@ squareNumberElement.addEventListener("click", () => {
 
 powerElement.addEventListener("click", () => {
   if (!display) return;
-  display += "^";
+  display += "^(";
   displayElement.value = display;
 });
 
@@ -145,37 +168,52 @@ deleteElement.addEventListener("click", () => {
 });
 
 /**
- * Returns true if the specified string has the balanced brackets and false otherwise.
- * Balanced means that is, whether it consists entirely of pairs of opening/closing brackets
- * (in that order), none of which mis-nest.
- *
+ *returns an array of indexes of keyword that occurred in a string
  *
  * @param {string} str
- * @return {boolean}
- *
- * @example:
- *   '()'   => true
+ * @param {string} keyword
+ * @returns {array}
  */
-function isBracketsBalanced(str) {
-  const stack = [];
-  const bracketPairs = {
-    "(": ")",
-  };
-
-  for (let i = 0; i < str.length; i++) {
-    const char = str[i];
-
-    if (bracketPairs[char]) {
-      // If it's an opening bracket, push it onto the stack.
-      stack.push(char);
-    } else if (Object.values(bracketPairs).includes(char)) {
-      // If it's a closing bracket, check if it matches the top of the stack.
-      if (stack.length === 0 || bracketPairs[stack.pop()] !== char) {
-        return false; // Mismatched brackets
-      }
+function searchOperator(str, keyword) {
+  let arr = str.split("");
+  let searchResults = [];
+  arr.forEach((element, index) => {
+    if (element === keyword) {
+      searchResults.push(index);
     }
-    // Ignore other characters
-  }
+  });
 
-  return stack.length === 0; // True if the stack is empty (all brackets matched)
+  return searchResults;
+}
+
+/*
+ * returns the power bases array for the power operations
+ * @param {string} display
+ * @param {array} powerSearchResults
+ * @returns {array}
+ */
+function powerBaseGetter(display, powerSearchResults, keyword) {
+  let powerBases = []; // save all the power bases
+  powerSearchResults.forEach((powerIndex) => {
+    let base = []; //store current base
+    let parenthesisCount = 0;
+    let previousIndex = powerIndex - 1;
+
+    while (previousIndex >= 0) {
+      if (display[previousIndex] === "(") parenthesisCount--;
+      if (display[previousIndex] === ")") parenthesisCount++;
+      let isOperator = false;
+      OPERATORS.forEach((OPERATOR) => {
+        if (display[previousIndex] === OPERATOR) isOperator = true;
+      });
+      let isPower = display[previousIndex] === keyword;
+      if ((isOperator && parenthesisCount === 0) || isPower) break;
+
+      base.unshift(display[previousIndex]);
+      previousIndex--;
+    }
+    powerBases.push(base.join(""));
+  });
+
+  return powerBases;
 }
