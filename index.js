@@ -15,6 +15,7 @@ const trigonometryElement = document.querySelectorAll(".trigonometry");
 const clearElement = document.querySelector(".clear-all");
 const deleteElement = document.querySelector(".delete");
 const radianElement = document.querySelector(".toggle-checkox");
+const fractionElement = document.getElementById("fraction");
 
 let display = "";
 let results = "";
@@ -183,6 +184,10 @@ deleteElement.addEventListener("click", () => {
   displayElement.value = display;
 });
 
+fractionElement.addEventListener("click", (e) => {
+  appendOperator(e);
+});
+
 /*
  * appends a value on the screen
  * @param {object} e
@@ -205,6 +210,16 @@ function appendNumber(e) {
   /* display numbers on screen */
   display += e.target.innerText;
   displayElement.value = display;
+}
+
+function appendOperator(e) {
+  if (e.target.innerText === "a/b") {
+    if (!display) {
+      return;
+    }
+    display += "/";
+    displayElement.value = display;
+  }
 }
 
 /**
