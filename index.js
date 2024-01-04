@@ -52,7 +52,6 @@ equalElement.addEventListener("click", () => {
     let powerSearchResults = searchOperator(display, "²");
     let powerExponentialSearchResults = searchOperator(display, "^(");
 
-    /* get power bases */
     const bases = powerBaseGetter(display, powerSearchResults, "²");
     const exponetialBases = powerBaseGetter(
       display,
@@ -98,6 +97,16 @@ equalElement.addEventListener("click", () => {
     if (display.includes("tan(")) {
       display = display.replaceAll("sin(", "getTrigonometry(Math.tan,");
     }
+
+    let piSearch = searchOperator(display, String.fromCharCode(960));
+
+    piSearch.forEach((element) => {
+      if (!display[element - 1]) {
+        display = display.replace(display[element], "Math.PI");
+      } else {
+        display = display.replace(display[element], "* Math.PI");
+      }
+    });
 
     results = eval(display);
     displayElement.value = results;
