@@ -111,7 +111,8 @@ equalElement.addEventListener("click", () => {
 });
 
 leftBracketElement.addEventListener("click", (e) => {
-  if (display.slice(-1) === ")") {
+  const lastCharacterInDisplay = display.slice(-1);
+  if (lastCharacterInDisplay === ")") {
     display += "x(";
   } else {
     display += e.target.innerText;
