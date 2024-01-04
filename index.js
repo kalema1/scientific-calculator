@@ -27,22 +27,7 @@ const OPERATORS = ["+", "-", "x", String.fromCharCode(247)];
 
 numbersElement.forEach((number) => {
   number.addEventListener("click", (e) => {
-    /* check dot exists and not to add another */
-    if (e.target.innerText === "." && !hasDot) {
-      hasDot = true;
-    } else if (e.target.innerText === "." && hasDot) {
-      return;
-    }
-    hasOperator = false;
-
-    /* check if its a first zero */
-    if (display === "0") {
-      display = "0";
-    }
-
-    /* display numbers on screen */
-    display += e.target.innerText;
-    displayElement.value = display;
+    appendNumber(e);
   });
 });
 
@@ -187,6 +172,30 @@ deleteElement.addEventListener("click", () => {
   display = display.slice(0, -1);
   displayElement.value = display;
 });
+
+/*
+ * appends a value on the screen
+ * @param {object} e
+ * @return {string}
+ */
+function appendNumber(e) {
+  /* check dot exists and not to add another */
+  if (e.target.innerText === "." && !hasDot) {
+    hasDot = true;
+  } else if (e.target.innerText === "." && hasDot) {
+    return;
+  }
+  hasOperator = false;
+
+  /* check if its a first zero */
+  if (display === "0") {
+    display = "0";
+  }
+
+  /* display numbers on screen */
+  display += e.target.innerText;
+  displayElement.value = display;
+}
 
 /**
  *returns an array of indexes of keyword that occurred in a string
