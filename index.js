@@ -53,8 +53,8 @@ equalElement.addEventListener("click", () => {
     let powerSearchResults = searchOperator(display, "²");
     let powerExponentialSearchResults = searchOperator(display, "^(");
 
-    const bases = powerBaseGetter(display, powerSearchResults, "²");
-    const exponetialBases = powerBaseGetter(
+    const bases = getExponentBase(display, powerSearchResults, "²");
+    const exponetialBases = getExponentBase(
       display,
       powerExponentialSearchResults,
       "^("
@@ -275,7 +275,7 @@ function searchOperator(str, keyword) {
  * @param {array} powerSearchResults
  * @returns {array}
  */
-function powerBaseGetter(display, powerSearchResults, keyword) {
+function getExponentBase(display, powerSearchResults, keyword) {
   let powerBases = []; // save all the power bases
   powerSearchResults.forEach((powerIndex) => {
     let base = []; //store current base
