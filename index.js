@@ -207,10 +207,7 @@ magnitudeElement.addEventListener("click", () => {
   displayElement.value = displayExpresionValue;
 });
 
-squarerootElement.addEventListener("click", () => {
-  displayExpresionValue += String.fromCharCode(8730) + "(";
-  displayElement.value = displayExpresionValue;
-});
+squarerootElement.addEventListener("click", appendFormulaOnDisplay);
 
 piElement.addEventListener("click", appendFormulaOnDisplay);
 
