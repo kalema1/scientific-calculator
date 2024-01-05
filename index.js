@@ -27,14 +27,14 @@ let radian = Math.PI / 180;
 const OPERATORS = ["+", "-", "x", String.fromCharCode(247)];
 
 numbersElement.forEach((number) => {
-  number.addEventListener("click", (e) => {
-    appendNumber(e);
-  });
+  number.addEventListener("click", appendNumber);
 });
 
 operatorsElement.forEach((operator) => {
   operator.addEventListener("click", (e) => {
-    if (!display) return;
+    if (!display) {
+      return;
+    }
     if (e.target.innerText && !hasOperator) {
       hasOperator = true;
     } else if (e.target.innerText && hasOperator) {
@@ -107,6 +107,16 @@ equalElement.addEventListener("click", () => {
       } else {
         display = display.replace(display[element], "* Math.PI");
       }
+    });
+
+    let nthRootSearchResults = searchOperator(display, nthRootformula);
+
+    nthRootSearchResults.forEach((element) => {
+      const beforeRoot = display[element - 1];
+      const afterRoot = display[element - 1];
+      let toReplace = beforeRoot + display[element] + afterRoot;
+      let replacement = "Math.pow(" + afterRoot + 1 / beforeRoot + ")";
+      display = display.replace(toReplace, replacement);
     });
 
     results = eval(display);
@@ -188,6 +198,10 @@ fractionElement.addEventListener("click", (e) => {
   appendOperator(e);
 });
 
+nthrootElement.addEventListener("click", (e) => {
+  appendOperator(e);
+});
+
 /*
  * appends a value on the screen
  * @param {object} e
@@ -212,14 +226,28 @@ function appendNumber(e) {
   displayElement.value = display;
 }
 
+const nthRootformula =
+  String.fromCharCode(8718) + String.fromCharCode(8730) + "(";
+
+/*
+ * appends a value on the screen
+ * @param {object} e
+ * @return {string}
+ */
 function appendOperator(e) {
   if (e.target.innerText === "a/b") {
     if (!display) {
       return;
     }
     display += "/";
-    displayElement.value = display;
   }
+  if (e.target.innerText === "y" + String.fromCharCode(8730)) {
+    if (!display) {
+      return;
+    }
+    display += nthRootformula;
+  }
+  displayElement.value = display;
 }
 
 /**
