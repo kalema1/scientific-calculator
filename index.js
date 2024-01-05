@@ -218,10 +218,7 @@ piElement.addEventListener("click", () => {
 });
 
 trigonometryElement.forEach((trig) => {
-  trig.addEventListener("click", (event) => {
-    displayExpresionValue += event.target.innerText + "(";
-    displayElement.value = displayExpresionValue;
-  });
+  trig.addEventListener("click", appendFormulaOnDisplay);
 });
 
 clearElement.addEventListener("click", clearAllOnDisplay);
@@ -359,7 +356,20 @@ function deleteLastEntryValue() {
   displayExpresionValue = displayExpresionValue.slice(0, -1);
   displayElement.value = displayExpresionValue;
 }
+
+/**
+ * clears all entry of the screen value.
+ */
 function clearAllOnDisplay() {
   displayExpresionValue = "";
   displayElement.value = "";
+}
+
+/**
+ * appends formula on the screen
+ */
+function appendFormulaOnDisplay(event) {
+  displayExpresionValue += event.target.getAttribute("formula");
+  displayElement.value = displayExpresionValue;
+  console.log(displayExpresionValue);
 }
