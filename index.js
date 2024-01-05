@@ -212,10 +212,7 @@ squarerootElement.addEventListener("click", () => {
   displayElement.value = displayExpresionValue;
 });
 
-piElement.addEventListener("click", () => {
-  displayExpresionValue += String.fromCharCode(960);
-  displayElement.value = displayExpresionValue;
-});
+piElement.addEventListener("click", appendFormulaOnDisplay);
 
 trigonometryElement.forEach((trig) => {
   trig.addEventListener("click", appendFormulaOnDisplay);
