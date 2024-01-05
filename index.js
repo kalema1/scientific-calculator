@@ -113,13 +113,13 @@ equalElement.addEventListener("click", () => {
 
     if (displayExpresionValue.includes("cos(")) {
       displayExpresionValue = displayExpresionValue.replaceAll(
-        "sin(",
+        "cos(",
         "getTrigonometry(Math.cos,"
       );
     }
     if (displayExpresionValue.includes("tan(")) {
       displayExpresionValue = displayExpresionValue.replaceAll(
-        "sin(",
+        "tan(",
         "getTrigonometry(Math.tan,"
       );
     }
@@ -229,10 +229,7 @@ clearElement.addEventListener("click", () => {
   displayElement.value = "";
 });
 
-deleteElement.addEventListener("click", () => {
-  displayExpresionValue = displayExpresionValue.slice(0, -1);
-  displayElement.value = displayExpresionValue;
-});
+deleteElement.addEventListener("click", deleteLastEntryValue);
 
 fractionElement.addEventListener("click", appendOperator);
 
@@ -356,4 +353,12 @@ function getTrigonometry(callack, angle) {
   }
 
   return callack(angle);
+}
+
+/**
+ * deletes the last entry of the screen value.
+ */
+function deleteLastEntryValue() {
+  displayExpresionValue = displayExpresionValue.slice(0, -1);
+  displayElement.value = displayExpresionValue;
 }
