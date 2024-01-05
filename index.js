@@ -224,10 +224,7 @@ trigonometryElement.forEach((trig) => {
   });
 });
 
-clearElement.addEventListener("click", () => {
-  displayExpresionValue = "";
-  displayElement.value = "";
-});
+clearElement.addEventListener("click", clearAllOnDisplay);
 
 deleteElement.addEventListener("click", deleteLastEntryValue);
 
@@ -361,4 +358,8 @@ function getTrigonometry(callack, angle) {
 function deleteLastEntryValue() {
   displayExpresionValue = displayExpresionValue.slice(0, -1);
   displayElement.value = displayExpresionValue;
+}
+function clearAllOnDisplay() {
+  displayExpresionValue = "";
+  displayElement.value = "";
 }
