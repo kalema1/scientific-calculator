@@ -31,17 +31,17 @@ numbersElement.forEach((number) => {
 });
 
 operatorsElement.forEach((operator) => {
-  operator.addEventListener("click", (e) => {
+  operator.addEventListener("click", (event) => {
     if (!display) {
       return;
     }
-    if (e.target.innerText && !hasOperator) {
+    if (event.target.innerText && !hasOperator) {
       hasOperator = true;
-    } else if (e.target.innerText && hasOperator) {
+    } else if (event.target.innerText && hasOperator) {
       return;
     }
     hasDot = false;
-    display += e.target.innerText;
+    display += event.target.innerText;
     displayElement.value = display;
   });
 });
@@ -130,23 +130,23 @@ equalElement.addEventListener("click", () => {
   }
 });
 
-leftBracketElement.addEventListener("click", (e) => {
+leftBracketElement.addEventListener("click", (event) => {
   const lastCharacterInDisplay = display.slice(-1);
   if (lastCharacterInDisplay === ")") {
     display += "x(";
   } else {
-    display += e.target.innerText;
+    display += event.target.innerText;
   }
 
   displayElement.value = display;
 });
-rightBracketElement.addEventListener("click", (e) => {
-  display += e.target.innerText;
+rightBracketElement.addEventListener("click", (event) => {
+  display += event.target.innerText;
   displayElement.value = display;
 });
 
-answerElement.addEventListener("click", (e) => {
-  display += e.target.innerText;
+answerElement.addEventListener("click", (event) => {
+  display += event.target.innerText;
   displayElement.value = display;
 });
 
@@ -178,8 +178,8 @@ piElement.addEventListener("click", () => {
 });
 
 trigonometryElement.forEach((trig) => {
-  trig.addEventListener("click", (e) => {
-    display += e.target.innerText + "(";
+  trig.addEventListener("click", (event) => {
+    display += event.target.innerText + "(";
     displayElement.value = display;
   });
 });
@@ -194,24 +194,20 @@ deleteElement.addEventListener("click", () => {
   displayElement.value = display;
 });
 
-fractionElement.addEventListener("click", (e) => {
-  appendOperator(e);
-});
+fractionElement.addEventListener("click", appendOperator);
 
-nthrootElement.addEventListener("click", (e) => {
-  appendOperator(e);
-});
+nthrootElement.addEventListener("click", appendOperator);
 
 /*
  * appends a value on the screen
- * @param {object} e
+ * @param {object} event
  * @return {string}
  */
-function appendNumber(e) {
+function appendNumber(event) {
   /* check dot exists and not to add another */
-  if (e.target.innerText === "." && !hasDot) {
+  if (event.target.innerText === "." && !hasDot) {
     hasDot = true;
-  } else if (e.target.innerText === "." && hasDot) {
+  } else if (event.target.innerText === "." && hasDot) {
     return;
   }
   hasOperator = false;
@@ -222,7 +218,7 @@ function appendNumber(e) {
   }
 
   /* display numbers on screen */
-  display += e.target.innerText;
+  display += event.target.innerText;
   displayElement.value = display;
 }
 
@@ -231,17 +227,17 @@ const nthRootformula =
 
 /*
  * appends a value on the screen
- * @param {object} e
+ * @param {object} event
  * @return {string}
  */
-function appendOperator(e) {
-  if (e.target.innerText === "a/b") {
+function appendOperator(event) {
+  if (event.target.innerText === "a/b") {
     if (!display) {
       return;
     }
     display += "/";
   }
-  if (e.target.innerText === "y" + String.fromCharCode(8730)) {
+  if (event.target.innerText === "y" + String.fromCharCode(8730)) {
     if (!display) {
       return;
     }
