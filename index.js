@@ -17,7 +17,7 @@ const deleteElement = document.querySelector(".delete");
 const radianElement = document.querySelector(".toggle-checkox");
 const fractionElement = document.getElementById("fraction");
 
-let display = "";
+let displayExpresionValue = "";
 let results = "";
 let hasDot = false;
 let hasOperator = false;
@@ -32,7 +32,7 @@ numbersElement.forEach((number) => {
 
 operatorsElement.forEach((operator) => {
   operator.addEventListener("click", (event) => {
-    if (!display) {
+    if (!displayExpresionValue) {
       return;
     }
     if (event.target.innerText && !hasOperator) {
@@ -41,88 +41,128 @@ operatorsElement.forEach((operator) => {
       return;
     }
     hasDot = false;
-    display += event.target.innerText;
-    displayElement.value = display;
+    displayExpresionValue += event.target.innerText;
+    displayElement.value = displayExpresionValue;
   });
 });
 
 equalElement.addEventListener("click", () => {
   try {
-    if (!display) return;
+    if (!displayExpresionValue) return;
 
-    let powerSearchResults = searchOperator(display, "²");
-    let powerExponentialSearchResults = searchOperator(display, "^(");
+    let powerSearchResults = searchOperator(displayExpresionValue, "²");
+    let powerExponentialSearchResults = searchOperator(
+      displayExpresionValue,
+      "^("
+    );
 
-    const bases = getExponentBase(display, powerSearchResults, "²");
+    const bases = getExponentBase(
+      displayExpresionValue,
+      powerSearchResults,
+      "²"
+    );
     const exponetialBases = getExponentBase(
-      display,
+      displayExpresionValue,
       powerExponentialSearchResults,
       "^("
     );
     bases.forEach((base) => {
       let toReplace = base + "²";
       let replacement = "Math.pow(" + base + ",2)";
-      display = display.replace(toReplace, replacement);
+      displayExpresionValue = displayExpresionValue.replace(
+        toReplace,
+        replacement
+      );
     });
 
     exponetialBases.forEach((base) => {
       let toReplace = base + "^(";
       let replacement = "Math.pow(" + base + ",";
-      display = display.replace(toReplace, replacement);
+      displayExpresionValue = displayExpresionValue.replace(
+        toReplace,
+        replacement
+      );
     });
 
-    if (display.includes("x")) {
-      display = display.replaceAll("x", "*");
+    if (displayExpresionValue.includes("x")) {
+      displayExpresionValue = displayExpresionValue.replaceAll("x", "*");
     }
-    if (display.includes(String.fromCharCode(247))) {
-      display = display.replaceAll(String.fromCharCode(247), "/");
+    if (displayExpresionValue.includes(String.fromCharCode(247))) {
+      displayExpresionValue = displayExpresionValue.replaceAll(
+        String.fromCharCode(247),
+        "/"
+      );
     }
-    if (display.includes("ans")) {
-      display = display.replaceAll("ans", answer);
+    if (displayExpresionValue.includes("ans")) {
+      displayExpresionValue = displayExpresionValue.replaceAll("ans", answer);
     }
 
-    if (display.includes(String.fromCharCode(8730) + "(")) {
-      display = display.replaceAll(
+    if (displayExpresionValue.includes(String.fromCharCode(8730) + "(")) {
+      displayExpresionValue = displayExpresionValue.replaceAll(
         String.fromCharCode(8730) + "(",
         "Math.sqrt("
       );
     }
 
-    if (display.includes("sin(")) {
-      display = display.replaceAll("sin(", "getTrigonometry(Math.sin,");
+    if (displayExpresionValue.includes("sin(")) {
+      displayExpresionValue = displayExpresionValue.replaceAll(
+        "sin(",
+        "getTrigonometry(Math.sin,"
+      );
     }
 
-    if (display.includes("cos(")) {
-      display = display.replaceAll("sin(", "getTrigonometry(Math.cos,");
+    if (displayExpresionValue.includes("cos(")) {
+      displayExpresionValue = displayExpresionValue.replaceAll(
+        "sin(",
+        "getTrigonometry(Math.cos,"
+      );
     }
-    if (display.includes("tan(")) {
-      display = display.replaceAll("sin(", "getTrigonometry(Math.tan,");
+    if (displayExpresionValue.includes("tan(")) {
+      displayExpresionValue = displayExpresionValue.replaceAll(
+        "sin(",
+        "getTrigonometry(Math.tan,"
+      );
     }
 
-    let piSearch = searchOperator(display, String.fromCharCode(960));
+    let piSearch = searchOperator(
+      displayExpresionValue,
+      String.fromCharCode(960)
+    );
 
     piSearch.forEach((element) => {
-      if (!display[element - 1]) {
-        display = display.replace(display[element], "Math.PI");
+      if (!displayExpresionValue[element - 1]) {
+        displayExpresionValue = displayExpresionValue.replace(
+          displayExpresionValue[element],
+          "Math.PI"
+        );
       } else {
-        display = display.replace(display[element], "* Math.PI");
+        displayExpresionValue = displayExpresionValue.replace(
+          displayExpresionValue[element],
+          "* Math.PI"
+        );
       }
     });
 
-    let nthRootSearchResults = searchOperator(display, nthRootformula);
+    let nthRootSearchResults = searchOperator(
+      displayExpresionValue,
+      nthRootformula
+    );
 
     nthRootSearchResults.forEach((element) => {
-      const beforeRoot = display[element - 1];
-      const afterRoot = display[element - 1];
-      let toReplace = beforeRoot + display[element] + afterRoot;
+      const beforeRoot = displayExpresionValue[element - 1];
+      const afterRoot = displayExpresionValue[element - 1];
+      let toReplace = beforeRoot + displayExpresionValue[element] + afterRoot;
       let replacement = "Math.pow(" + afterRoot + 1 / beforeRoot + ")";
-      display = display.replace(toReplace, replacement);
+      displayExpresionValue = displayExpresionValue.replace(
+        toReplace,
+        replacement
+      );
     });
 
-    results = eval(display);
+    results = eval(displayExpresionValue);
     displayElement.value = results;
     answer = results;
-    display = "";
+    displayExpresionValue = "";
   } catch (err) {
     results = "SYNTAX ERROR";
     displayElement.value = results;
@@ -131,67 +171,67 @@ equalElement.addEventListener("click", () => {
 });
 
 leftBracketElement.addEventListener("click", (event) => {
-  const lastCharacterInDisplay = display.slice(-1);
+  const lastCharacterInDisplay = displayExpresionValue.slice(-1);
   if (lastCharacterInDisplay === ")") {
-    display += "x(";
+    displayExpresionValue += "x(";
   } else {
-    display += event.target.innerText;
+    displayExpresionValue += event.target.innerText;
   }
 
-  displayElement.value = display;
+  displayElement.value = displayExpresionValue;
 });
 rightBracketElement.addEventListener("click", (event) => {
-  display += event.target.innerText;
-  displayElement.value = display;
+  displayExpresionValue += event.target.innerText;
+  displayElement.value = displayExpresionValue;
 });
 
 answerElement.addEventListener("click", (event) => {
-  display += event.target.innerText;
-  displayElement.value = display;
+  displayExpresionValue += event.target.innerText;
+  displayElement.value = displayExpresionValue;
 });
 
 squareNumberElement.addEventListener("click", () => {
-  if (!display) return;
-  display += "²";
-  displayElement.value = display;
+  if (!displayExpresionValue) return;
+  displayExpresionValue += "²";
+  displayElement.value = displayExpresionValue;
 });
 
 powerElement.addEventListener("click", () => {
-  if (!display) return;
-  display += "^(";
-  displayElement.value = display;
+  if (!displayExpresionValue) return;
+  displayExpresionValue += "^(";
+  displayElement.value = displayExpresionValue;
 });
 
 magnitudeElement.addEventListener("click", () => {
-  display += "|";
-  displayElement.value = display;
+  displayExpresionValue += "|";
+  displayElement.value = displayExpresionValue;
 });
 
 squarerootElement.addEventListener("click", () => {
-  display += String.fromCharCode(8730) + "(";
-  displayElement.value = display;
+  displayExpresionValue += String.fromCharCode(8730) + "(";
+  displayElement.value = displayExpresionValue;
 });
 
 piElement.addEventListener("click", () => {
-  display += String.fromCharCode(960);
-  displayElement.value = display;
+  displayExpresionValue += String.fromCharCode(960);
+  displayElement.value = displayExpresionValue;
 });
 
 trigonometryElement.forEach((trig) => {
   trig.addEventListener("click", (event) => {
-    display += event.target.innerText + "(";
-    displayElement.value = display;
+    displayExpresionValue += event.target.innerText + "(";
+    displayElement.value = displayExpresionValue;
   });
 });
 
 clearElement.addEventListener("click", () => {
-  display = "";
+  displayExpresionValue = "";
   displayElement.value = "";
 });
 
 deleteElement.addEventListener("click", () => {
-  display = display.slice(0, -1);
-  displayElement.value = display;
+  displayExpresionValue = displayExpresionValue.slice(0, -1);
+  displayElement.value = displayExpresionValue;
 });
 
 fractionElement.addEventListener("click", appendOperator);
@@ -213,13 +253,13 @@ function appendNumber(event) {
   hasOperator = false;
 
   /* check if its a first zero */
-  if (display === "0") {
-    display = "0";
+  if (displayExpresionValue === "0") {
+    displayExpresionValue = "0";
   }
 
-  /* display numbers on screen */
-  display += event.target.innerText;
-  displayElement.value = display;
+  /* displayExpresionValue numbers on screen */
+  displayExpresionValue += event.target.innerText;
+  displayElement.value = displayExpresionValue;
 }
 
 const nthRootformula =
@@ -232,18 +272,18 @@ const nthRootformula =
  */
 function appendOperator(event) {
   if (event.target.innerText === "a/b") {
-    if (!display) {
+    if (!displayExpresionValue) {
       return;
     }
-    display += "/";
+    displayExpresionValue += "/";
   }
   if (event.target.innerText === "y" + String.fromCharCode(8730)) {
-    if (!display) {
+    if (!displayExpresionValue) {
       return;
     }
-    display += nthRootformula;
+    displayExpresionValue += nthRootformula;
   }
-  displayElement.value = display;
+  displayElement.value = displayExpresionValue;
 }
 
 /**
@@ -267,11 +307,11 @@ function searchOperator(str, keyword) {
 
 /*
  * returns the power bases array for the power operations
- * @param {string} display
+ * @param {string} displayExpresionValue
  * @param {array} powerSearchResults
  * @returns {array}
  */
-function getExponentBase(display, powerSearchResults, keyword) {
+function getExponentBase(displayExpresionValue, powerSearchResults, keyword) {
   let powerBases = []; // save all the power bases
   powerSearchResults.forEach((powerIndex) => {
     let base = []; //store current base
@@ -279,16 +319,17 @@ function getExponentBase(display, powerSearchResults, keyword) {
     let previousIndex = powerIndex - 1;
 
     while (previousIndex >= 0) {
-      if (display[previousIndex] === "(") parenthesisCount--;
-      if (display[previousIndex] === ")") parenthesisCount++;
+      if (displayExpresionValue[previousIndex] === "(") parenthesisCount--;
+      if (displayExpresionValue[previousIndex] === ")") parenthesisCount++;
       let isOperator = false;
       OPERATORS.forEach((OPERATOR) => {
-        if (display[previousIndex] === OPERATOR) isOperator = true;
+        if (displayExpresionValue[previousIndex] === OPERATOR)
+          isOperator = true;
       });
-      let isPower = display[previousIndex] === keyword;
+      let isPower = displayExpresionValue[previousIndex] === keyword;
       if ((isOperator && parenthesisCount === 0) || isPower) break;
 
-      base.unshift(display[previousIndex]);
+      base.unshift(displayExpresionValue[previousIndex]);
       previousIndex--;
     }
     powerBases.push(base.join(""));
