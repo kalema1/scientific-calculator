@@ -371,5 +371,4 @@ function clearAllOnDisplay() {
 function appendFormulaOnDisplay(event) {
   displayExpresionValue += event.target.getAttribute("formula");
   displayElement.value = displayExpresionValue;
-  console.log(displayExpresionValue);
 }
