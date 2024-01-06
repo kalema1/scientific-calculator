@@ -160,19 +160,7 @@ equalElement.addEventListener("click", () => {
   }
 });
 
-leftBracketElement.addEventListener(
-  "click",
-  appendFormulaOnDisplay /* (event) => {
-  const lastCharacterInDisplay = displayExpresionValue.slice(-1);
-  if (lastCharacterInDisplay === ")") {
-    displayExpresionValue += "x(";
-  } else {
-    displayExpresionValue += event.target.innerText;
-  }
-
-  displayElement.value = displayExpresionValue;
-} */
-);
+leftBracketElement.addEventListener("click", appendFormulaOnDisplay);
 rightBracketElement.addEventListener("click", appendFormulaOnDisplay);
 
 answerElement.addEventListener("click", appendFormulaOnDisplay);
