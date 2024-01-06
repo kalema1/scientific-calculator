@@ -33,19 +33,7 @@ numbersElement.forEach((number) => {
 });
 
 operatorsElement.forEach((operator) => {
-  operator.addEventListener("click", (event) => {
-    if (!displayExpresionValue) {
-      return;
-    }
-    if (event.target.innerText && !hasOperator) {
-      hasOperator = true;
-    } else if (event.target.innerText && hasOperator) {
-      return;
-    }
-    hasDot = false;
-    displayExpresionValue += event.target.innerText;
-    displayElement.value = displayExpresionValue;
-  });
+  operator.addEventListener("click", appendOperator);
 });
 
 equalElement.addEventListener("click", () => {
@@ -242,18 +230,16 @@ function appendNumber(event) {
  * @return {string}
  */
 function appendOperator(event) {
-  if (event.target.innerText === "a/b") {
-    if (!displayExpresionValue) {
-      return;
-    }
-    displayExpresionValue += "/";
+  if (!displayExpresionValue) {
+    return;
   }
-  if (event.target.innerText === "y" + String.fromCharCode(8730)) {
-    if (!displayExpresionValue) {
-      return;
-    }
-    displayExpresionValue += nthRootformula;
+  if (event.target.innerText && !hasOperator) {
+    hasOperator = true;
+  } else if (event.target.innerText && hasOperator) {
+    return;
   }
+  hasDot = false;
+  displayExpresionValue += event.target.innerText;
   displayElement.value = displayExpresionValue;
 }
 
