@@ -184,14 +184,7 @@ rightBracketElement.addEventListener("click", appendFormulaOnDisplay);
 
 answerElement.addEventListener("click", appendFormulaOnDisplay);
 
-squareNumberElement.addEventListener(
-  "click",
-  appendFormulaOnDisplay /* () => {
-  if (!displayExpresionValue) return;
-  displayExpresionValue += "²";
-  displayElement.value = displayExpresionValue;
-} */
-);
+squareNumberElement.addEventListener("click", appendFormulaOnDisplay);
 
 powerElement.addEventListener("click", () => {
   if (!displayExpresionValue) return;
@@ -213,7 +206,7 @@ clearElement.addEventListener("click", clearAllOnDisplay);
 
 deleteElement.addEventListener("click", deleteLastEntryValue);
 
-fractionElement.addEventListener("click", appendOperator);
+fractionElement.addEventListener("click", appendFormulaOnDisplay);
 
 nthrootElement.addEventListener("click", appendOperator);
 
@@ -358,7 +351,7 @@ function clearAllOnDisplay() {
  */
 function appendFormulaOnDisplay(event) {
   let formulaValue = event.target.getAttribute("formula");
-  if (formulaValue === "²") {
+  if (formulaValue === "²" || formulaValue === "/") {
     if (!displayExpresionValue || displayExpresionValue === "") {
       return "";
     } else {
