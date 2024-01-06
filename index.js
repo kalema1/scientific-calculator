@@ -180,10 +180,7 @@ leftBracketElement.addEventListener("click", (event) => {
 
   displayElement.value = displayExpresionValue;
 });
-rightBracketElement.addEventListener("click", (event) => {
-  displayExpresionValue += event.target.innerText;
-  displayElement.value = displayExpresionValue;
-});
+rightBracketElement.addEventListener("click", appendFormulaOnDisplay);
 
 answerElement.addEventListener("click", appendFormulaOnDisplay);
 
