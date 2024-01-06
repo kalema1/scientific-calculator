@@ -202,10 +202,7 @@ powerElement.addEventListener("click", () => {
   displayElement.value = displayExpresionValue;
 });
 
-magnitudeElement.addEventListener("click", () => {
-  displayExpresionValue += "|";
-  displayElement.value = displayExpresionValue;
-});
+magnitudeElement.addEventListener("click", appendFormulaOnDisplay);
 
 squarerootElement.addEventListener("click", appendFormulaOnDisplay);
 
