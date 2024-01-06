@@ -160,7 +160,9 @@ equalElement.addEventListener("click", () => {
   }
 });
 
-leftBracketElement.addEventListener("click", (event) => {
+leftBracketElement.addEventListener(
+  "click",
+  appendFormulaOnDisplay /* (event) => {
   const lastCharacterInDisplay = displayExpresionValue.slice(-1);
   if (lastCharacterInDisplay === ")") {
     displayExpresionValue += "x(";
@@ -169,7 +171,8 @@ leftBracketElement.addEventListener("click", (event) => {
   }
 
   displayElement.value = displayExpresionValue;
-});
+} */
+);
 rightBracketElement.addEventListener("click", appendFormulaOnDisplay);
 
 answerElement.addEventListener("click", appendFormulaOnDisplay);
@@ -332,7 +335,11 @@ function clearAllOnDisplay() {
  */
 function appendFormulaOnDisplay(event) {
   let formulaValue = event.target.getAttribute("formula");
-  if (
+  const lastCharacterInDisplay = displayExpresionValue.slice(-1);
+
+  if (lastCharacterInDisplay === ")") {
+    displayExpresionValue += "x(";
+  } else if (
     formulaValue === "²" ||
     formulaValue === "/" ||
     formulaValue === nthRootformula ||
