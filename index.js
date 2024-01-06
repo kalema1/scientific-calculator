@@ -184,11 +184,14 @@ rightBracketElement.addEventListener("click", appendFormulaOnDisplay);
 
 answerElement.addEventListener("click", appendFormulaOnDisplay);
 
-squareNumberElement.addEventListener("click", () => {
+squareNumberElement.addEventListener(
+  "click",
+  appendFormulaOnDisplay /* () => {
   if (!displayExpresionValue) return;
   displayExpresionValue += "²";
   displayElement.value = displayExpresionValue;
-});
+} */
+);
 
 powerElement.addEventListener("click", () => {
   if (!displayExpresionValue) return;
@@ -356,10 +359,11 @@ function clearAllOnDisplay() {
 function appendFormulaOnDisplay(event) {
   let formulaValue = event.target.getAttribute("formula");
   if (formulaValue === "²") {
-    if (!displayExpresionValue) {
-      return;
+    if (!displayExpresionValue || displayExpresionValue === "") {
+      return "";
+    } else {
+      displayExpresionValue += formulaValue;
     }
-    displayExpresionValue += formulaValue;
   } else {
     displayExpresionValue += formulaValue;
   }
