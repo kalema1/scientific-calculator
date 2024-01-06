@@ -25,6 +25,8 @@ let answer;
 let isRadian = false;
 let radian = Math.PI / 180;
 const OPERATORS = ["+", "-", "x", String.fromCharCode(247)];
+const nthRootformula =
+  String.fromCharCode(8718) + String.fromCharCode(8730) + "(";
 
 numbersElement.forEach((number) => {
   number.addEventListener("click", appendNumber);
@@ -208,7 +210,7 @@ deleteElement.addEventListener("click", deleteLastEntryValue);
 
 fractionElement.addEventListener("click", appendFormulaOnDisplay);
 
-nthrootElement.addEventListener("click", appendOperator);
+nthrootElement.addEventListener("click", appendFormulaOnDisplay);
 
 /*
  * appends a value on the screen
@@ -233,9 +235,6 @@ function appendNumber(event) {
   displayExpresionValue += event.target.innerText;
   displayElement.value = displayExpresionValue;
 }
-
-const nthRootformula =
-  String.fromCharCode(8718) + String.fromCharCode(8730) + "(";
 
 /*
  * appends a value on the screen
@@ -351,7 +350,11 @@ function clearAllOnDisplay() {
  */
 function appendFormulaOnDisplay(event) {
   let formulaValue = event.target.getAttribute("formula");
-  if (formulaValue === "²" || formulaValue === "/") {
+  if (
+    formulaValue === "²" ||
+    formulaValue === "/" ||
+    formulaValue === nthRootformula
+  ) {
     if (!displayExpresionValue || displayExpresionValue === "") {
       return "";
     } else {
