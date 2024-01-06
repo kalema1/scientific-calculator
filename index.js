@@ -176,11 +176,7 @@ answerElement.addEventListener("click", appendFormulaOnDisplay);
 
 squareNumberElement.addEventListener("click", appendFormulaOnDisplay);
 
-powerElement.addEventListener("click", () => {
-  if (!displayExpresionValue) return;
-  displayExpresionValue += "^(";
-  displayElement.value = displayExpresionValue;
-});
+powerElement.addEventListener("click", appendFormulaOnDisplay);
 
 magnitudeElement.addEventListener("click", appendFormulaOnDisplay);
 
@@ -339,7 +335,8 @@ function appendFormulaOnDisplay(event) {
   if (
     formulaValue === "²" ||
     formulaValue === "/" ||
-    formulaValue === nthRootformula
+    formulaValue === nthRootformula ||
+    formulaValue === "^("
   ) {
     if (!displayExpresionValue || displayExpresionValue === "") {
       return "";
