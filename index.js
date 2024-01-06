@@ -354,6 +354,14 @@ function clearAllOnDisplay() {
  * appends formula on the screen
  */
 function appendFormulaOnDisplay(event) {
-  displayExpresionValue += event.target.getAttribute("formula");
+  let formulaValue = event.target.getAttribute("formula");
+  if (formulaValue === "²") {
+    if (!displayExpresionValue) {
+      return;
+    }
+    displayExpresionValue += formulaValue;
+  } else {
+    displayExpresionValue += formulaValue;
+  }
   displayElement.value = displayExpresionValue;
 }
