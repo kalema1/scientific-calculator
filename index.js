@@ -185,10 +185,7 @@ rightBracketElement.addEventListener("click", (event) => {
   displayElement.value = displayExpresionValue;
 });
 
-answerElement.addEventListener("click", (event) => {
-  displayExpresionValue += event.target.innerText;
-  displayElement.value = displayExpresionValue;
-});
+answerElement.addEventListener("click", appendFormulaOnDisplay);
 
 squareNumberElement.addEventListener("click", () => {
   if (!displayExpresionValue) return;
