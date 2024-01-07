@@ -229,7 +229,7 @@ function calculateResults() {
   try {
     if (!displayExpresionValue) return;
 
-    getPowerCalationResults("²");
+    getPowerCalculationResults("²");
     /* let powerSearchResults = searchOperator(displayExpresionValue, "²");
     let powerExponentialSearchResults = searchOperator(
       displayExpresionValue,
@@ -353,7 +353,7 @@ function calculateResults() {
   }
 }
 
-function getPowerCalationResults(ketwordSignValue) {
+function getPowerCalculationResults(ketwordSignValue) {
   let powerSearchResults = searchOperator(
     displayExpresionValue,
     ketwordSignValue
