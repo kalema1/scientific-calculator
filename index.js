@@ -244,9 +244,8 @@ function calculateResults() {
 
     getPowerCalculationResults(powerSign, ",");
 
-    if (displayExpresionValue.includes("x")) {
-      displayExpresionValue = displayExpresionValue.replaceAll("x", "*");
-    }
+    replaceWithRightOperator("x", "*");
+
     if (displayExpresionValue.includes(String.fromCharCode(247))) {
       displayExpresionValue = displayExpresionValue.replaceAll(
         String.fromCharCode(247),
@@ -350,6 +349,14 @@ function getPowerCalculationResults(keywordSignValue, powerNumber) {
       toReplace,
       replacement
     );
-    console.log("working");
   });
+}
+
+function replaceWithRightOperator(toReplace, replacement) {
+  if (displayExpresionValue.includes(toReplace)) {
+    displayExpresionValue = displayExpresionValue.replaceAll(
+      toReplace,
+      replacement
+    );
+  }
 }
