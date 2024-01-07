@@ -229,7 +229,8 @@ function calculateResults() {
   try {
     if (!displayExpresionValue) return;
 
-    let powerSearchResults = searchOperator(displayExpresionValue, "²");
+    getPowerCalationResults("²");
+    /* let powerSearchResults = searchOperator(displayExpresionValue, "²");
     let powerExponentialSearchResults = searchOperator(
       displayExpresionValue,
       "^("
@@ -261,7 +262,7 @@ function calculateResults() {
         toReplace,
         replacement
       );
-    });
+    }); */
 
     if (displayExpresionValue.includes("x")) {
       displayExpresionValue = displayExpresionValue.replaceAll("x", "*");
@@ -350,4 +351,24 @@ function calculateResults() {
     displayElement.value = results;
     console.log(err);
   }
+}
+
+function getPowerCalationResults(ketwordSignValue) {
+  let powerSearchResults = searchOperator(
+    displayExpresionValue,
+    ketwordSignValue
+  );
+  const bases = getExponentBase(
+    displayExpresionValue,
+    powerSearchResults,
+    ketwordSignValue
+  );
+  bases.forEach((base) => {
+    let toReplace = base + ketwordSignValue;
+    let replacement = "Math.pow(" + base + ",2)";
+    displayExpresionValue = displayExpresionValue.replace(
+      toReplace,
+      replacement
+    );
+  });
 }
