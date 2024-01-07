@@ -248,16 +248,9 @@ function calculateResults() {
 
     replaceWithRightOperator(String.fromCharCode(247), "/");
 
-    if (displayExpresionValue.includes("ans")) {
-      displayExpresionValue = displayExpresionValue.replaceAll("ans", answer);
-    }
+    replaceWithRightOperator("ans", answer);
 
-    if (displayExpresionValue.includes(String.fromCharCode(8730) + "(")) {
-      displayExpresionValue = displayExpresionValue.replaceAll(
-        String.fromCharCode(8730) + "(",
-        "Math.sqrt("
-      );
-    }
+    replaceWithRightOperator(String.fromCharCode(8730) + "(", "Math.sqrt(");
 
     if (displayExpresionValue.includes("sin(")) {
       displayExpresionValue = displayExpresionValue.replaceAll(
