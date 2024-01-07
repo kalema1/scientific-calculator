@@ -252,12 +252,7 @@ function calculateResults() {
 
     replaceWithRightOperator(String.fromCharCode(8730) + "(", "Math.sqrt(");
 
-    if (displayExpresionValue.includes("sin(")) {
-      displayExpresionValue = displayExpresionValue.replaceAll(
-        "sin(",
-        "getTrigonometry(Math.sin,"
-      );
-    }
+    replaceWithRightOperator("sin(", "getTrigonometry(Math.sin,");
 
     if (displayExpresionValue.includes("cos(")) {
       displayExpresionValue = displayExpresionValue.replaceAll(
