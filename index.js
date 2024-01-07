@@ -36,129 +36,7 @@ operatorsElement.forEach((operator) => {
   operator.addEventListener("click", appendOperator);
 });
 
-equalElement.addEventListener("click", () => {
-  try {
-    if (!displayExpresionValue) return;
-
-    let powerSearchResults = searchOperator(displayExpresionValue, "²");
-    let powerExponentialSearchResults = searchOperator(
-      displayExpresionValue,
-      "^("
-    );
-
-    const bases = getExponentBase(
-      displayExpresionValue,
-      powerSearchResults,
-      "²"
-    );
-    const exponetialBases = getExponentBase(
-      displayExpresionValue,
-      powerExponentialSearchResults,
-      "^("
-    );
-    bases.forEach((base) => {
-      let toReplace = base + "²";
-      let replacement = "Math.pow(" + base + ",2)";
-      displayExpresionValue = displayExpresionValue.replace(
-        toReplace,
-        replacement
-      );
-    });
-
-    exponetialBases.forEach((base) => {
-      let toReplace = base + "^(";
-      let replacement = "Math.pow(" + base + ",";
-      displayExpresionValue = displayExpresionValue.replace(
-        toReplace,
-        replacement
-      );
-    });
-
-    if (displayExpresionValue.includes("x")) {
-      displayExpresionValue = displayExpresionValue.replaceAll("x", "*");
-    }
-    if (displayExpresionValue.includes(String.fromCharCode(247))) {
-      displayExpresionValue = displayExpresionValue.replaceAll(
-        String.fromCharCode(247),
-        "/"
-      );
-    }
-    if (displayExpresionValue.includes("ans")) {
-      displayExpresionValue = displayExpresionValue.replaceAll("ans", answer);
-    }
-
-    if (displayExpresionValue.includes(String.fromCharCode(8730) + "(")) {
-      displayExpresionValue = displayExpresionValue.replaceAll(
-        String.fromCharCode(8730) + "(",
-        "Math.sqrt("
-      );
-    }
-
-    if (displayExpresionValue.includes("sin(")) {
-      displayExpresionValue = displayExpresionValue.replaceAll(
-        "sin(",
-        "getTrigonometry(Math.sin,"
-      );
-    }
-
-    if (displayExpresionValue.includes("cos(")) {
-      displayExpresionValue = displayExpresionValue.replaceAll(
-        "cos(",
-        "getTrigonometry(Math.cos,"
-      );
-    }
-    if (displayExpresionValue.includes("tan(")) {
-      displayExpresionValue = displayExpresionValue.replaceAll(
-        "tan(",
-        "getTrigonometry(Math.tan,"
-      );
-    }
-
-    let piSearch = searchOperator(
-      displayExpresionValue,
-      String.fromCharCode(960)
-    );
-
-    piSearch.forEach((element) => {
-      if (!displayExpresionValue[element - 1]) {
-        displayExpresionValue = displayExpresionValue.replace(
-          displayExpresionValue[element],
-          "Math.PI"
-        );
-      } else {
-        displayExpresionValue = displayExpresionValue.replace(
-          displayExpresionValue[element],
-          "* Math.PI"
-        );
-      }
-    });
-
-    let nthRootSearchResults = searchOperator(
-      displayExpresionValue,
-      nthRootformula
-    );
-
-    nthRootSearchResults.forEach((element) => {
-      const beforeRoot = displayExpresionValue[element - 1];
-      const afterRoot = displayExpresionValue[element - 1];
-      let toReplace = beforeRoot + displayExpresionValue[element] + afterRoot;
-      let replacement = "Math.pow(" + afterRoot + 1 / beforeRoot + ")";
-      displayExpresionValue = displayExpresionValue.replace(
-        toReplace,
-        replacement
-      );
-    });
-
-    results = eval(displayExpresionValue);
-    displayElement.value = results;
-    answer = results;
-    displayExpresionValue = "";
-  } catch (err) {
-    results = "SYNTAX ERROR";
-    displayElement.value = results;
-    console.log(err);
-  }
-});
+equalElement.addEventListener("click", calculateResults);
 
 leftBracketElement.addEventListener("click", appendFormulaOnDisplay);
 rightBracketElement.addEventListener("click", appendFormulaOnDisplay);
@@ -342,4 +220,134 @@ function appendFormulaOnDisplay(event) {
     displayExpresionValue += formulaValue;
   }
   displayElement.value = displayExpresionValue;
+}
+
+/**
+ * gives the rsults from the calculation of the display expression
+ */
+function calculateResults() {
+  try {
+    if (!displayExpresionValue) return;
+
+    let powerSearchResults = searchOperator(displayExpresionValue, "²");
+    let powerExponentialSearchResults = searchOperator(
+      displayExpresionValue,
+      "^("
+    );
+
+    const bases = getExponentBase(
+      displayExpresionValue,
+      powerSearchResults,
+      "²"
+    );
+    const exponetialBases = getExponentBase(
+      displayExpresionValue,
+      powerExponentialSearchResults,
+      "^("
+    );
+    bases.forEach((base) => {
+      let toReplace = base + "²";
+      let replacement = "Math.pow(" + base + ",2)";
+      displayExpresionValue = displayExpresionValue.replace(
+        toReplace,
+        replacement
+      );
+    });
+
+    exponetialBases.forEach((base) => {
+      let toReplace = base + "^(";
+      let replacement = "Math.pow(" + base + ",";
+      displayExpresionValue = displayExpresionValue.replace(
+        toReplace,
+        replacement
+      );
+    });
+
+    if (displayExpresionValue.includes("x")) {
+      displayExpresionValue = displayExpresionValue.replaceAll("x", "*");
+    }
+    if (displayExpresionValue.includes(String.fromCharCode(247))) {
+      displayExpresionValue = displayExpresionValue.replaceAll(
+        String.fromCharCode(247),
+        "/"
+      );
+    }
+    if (displayExpresionValue.includes("ans")) {
+      displayExpresionValue = displayExpresionValue.replaceAll("ans", answer);
+    }
+
+    if (displayExpresionValue.includes(String.fromCharCode(8730) + "(")) {
+      displayExpresionValue = displayExpresionValue.replaceAll(
+        String.fromCharCode(8730) + "(",
+        "Math.sqrt("
+      );
+    }
+
+    if (displayExpresionValue.includes("sin(")) {
+      displayExpresionValue = displayExpresionValue.replaceAll(
+        "sin(",
+        "getTrigonometry(Math.sin,"
+      );
+    }
+
+    if (displayExpresionValue.includes("cos(")) {
+      displayExpresionValue = displayExpresionValue.replaceAll(
+        "cos(",
+        "getTrigonometry(Math.cos,"
+      );
+    }
+    if (displayExpresionValue.includes("tan(")) {
+      displayExpresionValue = displayExpresionValue.replaceAll(
+        "tan(",
+        "getTrigonometry(Math.tan,"
+      );
+    }
+
+    let piSearch = searchOperator(
+      displayExpresionValue,
+      String.fromCharCode(960)
+    );
+
+    piSearch.forEach((element) => {
+      if (
+        typeof Number(displayExpresionValue[element - 1]) === "number" &&
+        displayExpresionValue[element - 1]
+      ) {
+        displayExpresionValue = displayExpresionValue.replace(
+          displayExpresionValue[element],
+          "* Math.PI"
+        );
+      } else {
+        displayExpresionValue = displayExpresionValue.replace(
+          displayExpresionValue[element],
+          "Math.PI"
+        );
+      }
+    });
+
+    let nthRootSearchResults = searchOperator(
+      displayExpresionValue,
+      nthRootformula
+    );
+
+    nthRootSearchResults.forEach((element) => {
+      const beforeRoot = displayExpresionValue[element - 1];
+      const afterRoot = displayExpresionValue[element + 1];
+      let toReplace = beforeRoot + displayExpresionValue[element] + afterRoot;
+      let replacement = "Math.pow(" + afterRoot + 1 / beforeRoot + ")";
+      displayExpresionValue = displayExpresionValue.replace(
+        toReplace,
+        replacement
+      );
+    });
+
+    results = eval(displayExpresionValue);
+    displayElement.value = results;
+    answer = results;
+    displayExpresionValue = "";
+  } catch (err) {
+    results = "SYNTAX ERROR";
+    displayElement.value = results;
+    console.log(err);
+  }
 }
