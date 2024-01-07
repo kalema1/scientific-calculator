@@ -271,6 +271,7 @@ function calculateResults() {
   } catch (err) {
     results = "SYNTAX ERROR";
     displayElement.value = results;
+    displayExpresionValue = "";
     console.log(err);
   }
 }
