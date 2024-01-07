@@ -39,7 +39,7 @@ operatorsElement.forEach((operator) => {
 
 equalElement.addEventListener("click", calculateResults);
 
-leftBracketElement.addEventListener("click", appendFormulaOnDisplay);
+leftBracketElement.addEventListener("click", appendLeftBracket);
 rightBracketElement.addEventListener("click", appendFormulaOnDisplay);
 
 answerElement.addEventListener("click", appendFormulaOnDisplay);
@@ -202,11 +202,7 @@ function clearAllOnDisplay() {
  */
 function appendFormulaOnDisplay(event) {
   let formulaValue = event.target.getAttribute("formula");
-  const lastCharacterInDisplay = displayExpresionValue.slice(-1);
-
-  if (lastCharacterInDisplay === ")") {
-    displayExpresionValue += "x(";
-  } else if (
+  if (
     formulaValue === "²" ||
     formulaValue === "/" ||
     formulaValue === nthRootformula ||
@@ -219,6 +215,20 @@ function appendFormulaOnDisplay(event) {
     }
   } else {
     displayExpresionValue += formulaValue;
+  }
+  displayElement.value = displayExpresionValue;
+}
+/**
+ * append right bracket on the screen
+ *
+ */
+function appendLeftBracket(event) {
+  const lastCharacterInDisplay = displayExpresionValue.slice(-1);
+
+  if (lastCharacterInDisplay === ")") {
+    displayExpresionValue += "x(";
+  } else {
+    displayExpresionValue += event.target.getAttribute("formula");
   }
   displayElement.value = displayExpresionValue;
 }
