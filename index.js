@@ -246,12 +246,8 @@ function calculateResults() {
 
     replaceWithRightOperator("x", "*");
 
-    if (displayExpresionValue.includes(String.fromCharCode(247))) {
-      displayExpresionValue = displayExpresionValue.replaceAll(
-        String.fromCharCode(247),
-        "/"
-      );
-    }
+    replaceWithRightOperator(String.fromCharCode(247), "/");
+
     if (displayExpresionValue.includes("ans")) {
       displayExpresionValue = displayExpresionValue.replaceAll("ans", answer);
     }
