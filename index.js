@@ -254,18 +254,9 @@ function calculateResults() {
 
     replaceWithRightOperator("sin(", "getTrigonometry(Math.sin,");
 
-    if (displayExpresionValue.includes("cos(")) {
-      displayExpresionValue = displayExpresionValue.replaceAll(
-        "cos(",
-        "getTrigonometry(Math.cos,"
-      );
-    }
-    if (displayExpresionValue.includes("tan(")) {
-      displayExpresionValue = displayExpresionValue.replaceAll(
-        "tan(",
-        "getTrigonometry(Math.tan,"
-      );
-    }
+    replaceWithRightOperator("cos(", "getTrigonometry(Math.cos,");
+
+    replaceWithRightOperator("tan(", "getTrigonometry(Math.tan,");
 
     let piSearch = searchOperator(
       displayExpresionValue,
