@@ -260,43 +260,9 @@ function calculateResults() {
 
     replaceWithRightOperator("|(", "Math.abs(");
 
-    let piSearch = searchOperator(
-      displayExpresionValue,
-      String.fromCharCode(960)
-    );
+    replacePiWithRoghtOperator();
 
-    piSearch.forEach((element) => {
-      if (
-        typeof Number(displayExpresionValue[element - 1]) === "number" &&
-        displayExpresionValue[element - 1]
-      ) {
-        displayExpresionValue = displayExpresionValue.replace(
-          displayExpresionValue[element],
-          "* Math.PI"
-        );
-      } else {
-        displayExpresionValue = displayExpresionValue.replace(
-          displayExpresionValue[element],
-          "Math.PI"
-        );
-      }
-    });
-
-    let nthRootSearchResults = searchOperator(
-      displayExpresionValue,
-      nthRootformula
-    );
-
-    nthRootSearchResults.forEach((element) => {
-      const beforeRoot = displayExpresionValue[element - 1];
-      const afterRoot = displayExpresionValue[element + 1];
-      let toReplace = beforeRoot + displayExpresionValue[element] + afterRoot;
-      let replacement = "Math.pow(" + afterRoot + 1 / beforeRoot + ")";
-      displayExpresionValue = displayExpresionValue.replace(
-        toReplace,
-        replacement
-      );
-    });
+    replacenthRootWithRightOperator();
 
     results = eval(displayExpresionValue);
     displayElement.value = results;
@@ -329,6 +295,10 @@ function getPowerCalculationResults(keywordSignValue, powerNumber) {
   });
 }
 
+/**
+ * replace display screen operators with right javascript operators
+ *
+ */
 function replaceWithRightOperator(toReplace, replacement) {
   if (displayExpresionValue.includes(toReplace)) {
     displayExpresionValue = displayExpresionValue.replaceAll(
@@ -336,4 +306,50 @@ function replaceWithRightOperator(toReplace, replacement) {
       replacement
     );
   }
+}
+
+/**
+ * replace pi screen operator with right javascript operator
+ *
+ */
+function replacePiWithRoghtOperator() {
+  let piSearch = searchOperator(
+    displayExpresionValue,
+    String.fromCharCode(960)
+  );
+
+  piSearch.forEach((element) => {
+    if (
+      typeof Number(displayExpresionValue[element - 1]) === "number" &&
+      displayExpresionValue[element - 1]
+    ) {
+      displayExpresionValue = displayExpresionValue.replace(
+        displayExpresionValue[element],
+        "* Math.PI"
+      );
+    } else {
+      displayExpresionValue = displayExpresionValue.replace(
+        displayExpresionValue[element],
+        "Math.PI"
+      );
+    }
+  });
+}
+
+function replacenthRootWithRightOperator() {
+  let nthRootSearchResults = searchOperator(
+    displayExpresionValue,
+    nthRootformula
+  );
+
+  nthRootSearchResults.forEach((element) => {
+    const beforeRoot = displayExpresionValue[element - 1];
+    const afterRoot = displayExpresionValue[element + 1];
+    let toReplace = beforeRoot + displayExpresionValue[element] + afterRoot;
+    let replacement = "Math.pow(" + afterRoot + 1 / beforeRoot + ")";
+    displayExpresionValue = displayExpresionValue.replace(
+      toReplace,
+      replacement
+    );
+  });
 }
