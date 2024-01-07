@@ -258,6 +258,8 @@ function calculateResults() {
 
     replaceWithRightOperator("tan(", "getTrigonometry(Math.tan,");
 
+    replaceWithRightOperator("|(", "Math.abs(");
+
     let piSearch = searchOperator(
       displayExpresionValue,
       String.fromCharCode(960)
