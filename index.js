@@ -27,6 +27,7 @@ let radian = Math.PI / 180;
 const OPERATORS = ["+", "-", "x", String.fromCharCode(247)];
 const nthRootformula =
   String.fromCharCode(8718) + String.fromCharCode(8730) + "(";
+const powerSign = String.fromCharCode(9213) + "(";
 
 numbersElement.forEach((number) => {
   number.addEventListener("click", appendNumber);
@@ -209,7 +210,7 @@ function appendFormulaOnDisplay(event) {
     formulaValue === "²" ||
     formulaValue === "/" ||
     formulaValue === nthRootformula ||
-    formulaValue === "^("
+    formulaValue === powerSign
   ) {
     if (!displayExpresionValue || displayExpresionValue === "") {
       return "";
@@ -229,40 +230,9 @@ function calculateResults() {
   try {
     if (!displayExpresionValue) return;
 
-    getPowerCalculationResults("²");
-    /* let powerSearchResults = searchOperator(displayExpresionValue, "²");
-    let powerExponentialSearchResults = searchOperator(
-      displayExpresionValue,
-      "^("
-    );
+    getPowerCalculationResults("²", ",2)");
 
-    const bases = getExponentBase(
-      displayExpresionValue,
-      powerSearchResults,
-      "²"
-    );
-    const exponetialBases = getExponentBase(
-      displayExpresionValue,
-      powerExponentialSearchResults,
-      "^("
-    );
-    bases.forEach((base) => {
-      let toReplace = base + "²";
-      let replacement = "Math.pow(" + base + ",2)";
-      displayExpresionValue = displayExpresionValue.replace(
-        toReplace,
-        replacement
-      );
-    });
-
-    exponetialBases.forEach((base) => {
-      let toReplace = base + "^(";
-      let replacement = "Math.pow(" + base + ",";
-      displayExpresionValue = displayExpresionValue.replace(
-        toReplace,
-        replacement
-      );
-    }); */
+    getPowerCalculationResults(powerSign, ",");
 
     if (displayExpresionValue.includes("x")) {
       displayExpresionValue = displayExpresionValue.replaceAll("x", "*");
@@ -353,22 +323,23 @@ function calculateResults() {
   }
 }
 
-function getPowerCalculationResults(ketwordSignValue) {
+function getPowerCalculationResults(keywordSignValue, powerNumber) {
   let powerSearchResults = searchOperator(
     displayExpresionValue,
-    ketwordSignValue
+    keywordSignValue
   );
   const bases = getExponentBase(
     displayExpresionValue,
     powerSearchResults,
-    ketwordSignValue
+    keywordSignValue
   );
   bases.forEach((base) => {
-    let toReplace = base + ketwordSignValue;
-    let replacement = "Math.pow(" + base + ",2)";
+    let toReplace = base + keywordSignValue;
+    let replacement = "Math.pow(" + base + powerNumber;
     displayExpresionValue = displayExpresionValue.replace(
       toReplace,
       replacement
     );
+    console.log("working");
   });
 }
