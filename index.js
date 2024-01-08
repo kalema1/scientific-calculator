@@ -34,6 +34,7 @@ const powerSign = String.fromCharCode(9213) + "(";
 let undoRedoExpresionArray = [];
 let undoRedoResultArray = [];
 let undoRedoExpresionIndex = -1;
+let undoRedoResultIndex = -1;
 
 numbersElement.forEach((number) => {
   number.addEventListener("click", appendNumber);
@@ -73,6 +74,8 @@ fractionElement.addEventListener("click", appendFormulaOnDisplay);
 nthrootElement.addEventListener("click", appendFormulaOnDisplay);
 
 undoElement.addEventListener("click", undoOperation);
+
+redoElement.addEventListener("click", redoOperation);
 /*
  * appends a value on the screen
  * @param {object} event
@@ -279,7 +282,9 @@ function calculateResults() {
     resultDisplayElement.innerText = results;
     answer = results;
     undoRedoExpresionArray.push(displayExpresionValue);
+    undoRedoResultArray.push(results);
     undoRedoExpresionIndex++;
+    undoRedoResultIndex++;
     displayExpresionValue = "";
   } catch (err) {
     results = "SYNTAX ERROR";
@@ -369,8 +374,24 @@ function replacenthRootWithRightOperator() {
 }
 
 function undoOperation() {
-  if (undoRedoExpresionIndex > 0) {
+  if (undoRedoExpresionIndex > 0 || undoRedoResultIndex > 0) {
     undoRedoExpresionIndex--;
+    undoRedoResultIndex--;
   }
   displayElement.value = undoRedoExpresionArray[undoRedoExpresionIndex];
+  resultDisplayElement.innerText = undoRedoResultArray[undoRedoResultIndex];
+}
+
+function redoOperation() {
+  let resultArrayLength = undoRedoResultArray.length - 1;
+  let expresionArrayLength = undoRedoExpresionArray.length - 1;
+  if (
+    undoRedoExpresionIndex < expresionArrayLength ||
+    undoRedoResultIndex < resultArrayLength
+  ) {
+    undoRedoExpresionIndex++;
+    undoRedoResultIndex++;
+    displayElement.value = undoRedoExpresionArray[undoRedoExpresionIndex];
+    resultDisplayElement.innerText = undoRedoResultArray[undoRedoResultIndex];
+  }
 }
