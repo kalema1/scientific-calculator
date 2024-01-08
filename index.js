@@ -373,6 +373,9 @@ function replacenthRootWithRightOperator() {
   });
 }
 
+/**
+ * performs undo operation
+ */
 function undoOperation() {
   if (undoRedoExpresionIndex > 0 || undoRedoResultIndex > 0) {
     undoRedoExpresionIndex--;
@@ -382,6 +385,9 @@ function undoOperation() {
   resultDisplayElement.innerText = undoRedoResultArray[undoRedoResultIndex];
 }
 
+/**
+ * performs redo operation
+ */
 function redoOperation() {
   let resultArrayLength = undoRedoResultArray.length - 1;
   let expresionArrayLength = undoRedoExpresionArray.length - 1;
