@@ -17,6 +17,8 @@ const deleteElement = document.querySelector(".delete");
 const radianElement = document.querySelector(".toggle-checkox");
 const fractionElement = document.getElementById("fraction");
 const resultDisplayElement = document.getElementById("result-display");
+const undoElement = document.getElementById("undo");
+const redoElement = document.getElementById("redo");
 
 let displayExpresionValue = "";
 let results = "";
@@ -29,6 +31,9 @@ const OPERATORS = ["+", "-", "x", String.fromCharCode(247)];
 const nthRootformula =
   String.fromCharCode(8718) + String.fromCharCode(8730) + "(";
 const powerSign = String.fromCharCode(9213) + "(";
+let undoRedoExpresionArray = [];
+let undoRedoResultArray = [];
+let undoRedoExpresionIndex = -1;
 
 numbersElement.forEach((number) => {
   number.addEventListener("click", appendNumber);
@@ -67,6 +72,7 @@ fractionElement.addEventListener("click", appendFormulaOnDisplay);
 
 nthrootElement.addEventListener("click", appendFormulaOnDisplay);
 
+undoElement.addEventListener("click", undoOperation);
 /*
  * appends a value on the screen
  * @param {object} event
@@ -272,6 +278,8 @@ function calculateResults() {
     results = eval(displayExpresionValue);
     resultDisplayElement.innerText = results;
     answer = results;
+    undoRedoExpresionArray.push(displayExpresionValue);
+    undoRedoExpresionIndex++;
     displayExpresionValue = "";
   } catch (err) {
     results = "SYNTAX ERROR";
@@ -358,4 +366,11 @@ function replacenthRootWithRightOperator() {
       replacement
     );
   });
+}
+
+function undoOperation() {
+  if (undoRedoExpresionIndex > 0) {
+    undoRedoExpresionIndex--;
+  }
+  displayElement.value = undoRedoExpresionArray[undoRedoExpresionIndex];
 }
