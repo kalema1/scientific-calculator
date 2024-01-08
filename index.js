@@ -16,6 +16,7 @@ const clearElement = document.querySelector(".clear-all");
 const deleteElement = document.querySelector(".delete");
 const radianElement = document.querySelector(".toggle-checkox");
 const fractionElement = document.getElementById("fraction");
+const resultDisplayElement = document.getElementById("result-display");
 
 let displayExpresionValue = "";
 let results = "";
@@ -195,6 +196,7 @@ function deleteLastEntryValue() {
 function clearAllOnDisplay() {
   displayExpresionValue = "";
   displayElement.value = "";
+  resultDisplayElement.innerText = "";
 }
 
 /**
@@ -265,12 +267,12 @@ function calculateResults() {
     replacenthRootWithRightOperator();
 
     results = eval(displayExpresionValue);
-    displayElement.value = results;
+    resultDisplayElement.innerText = results;
     answer = results;
     displayExpresionValue = "";
   } catch (err) {
     results = "SYNTAX ERROR";
-    displayElement.value = results;
+    resultDisplayElement.innerText = results;
     displayExpresionValue = "";
     console.log(err);
   }
