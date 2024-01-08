@@ -89,6 +89,7 @@ function appendNumber(event) {
   /* displayExpresionValue numbers on screen */
   displayExpresionValue += event.target.innerText;
   displayElement.value = displayExpresionValue;
+  resultDisplayElement.innerText = "";
 }
 
 /*
@@ -219,6 +220,7 @@ function appendFormulaOnDisplay(event) {
     displayExpresionValue += formulaValue;
   }
   displayElement.value = displayExpresionValue;
+  resultDisplayElement.innerText = "";
 }
 /**
  * append right bracket on the screen
@@ -233,6 +235,7 @@ function appendLeftBracket(event) {
     displayExpresionValue += event.target.getAttribute("formula");
   }
   displayElement.value = displayExpresionValue;
+  resultDisplayElement.innerText = "";
 }
 
 /**
@@ -262,7 +265,7 @@ function calculateResults() {
 
     replaceWithRightOperator("|(", "Math.abs(");
 
-    replacePiWithRoghtOperator();
+    replacePiWithRightOperator();
 
     replacenthRootWithRightOperator();
 
@@ -315,7 +318,7 @@ function replaceWithRightOperator(toReplace, replacement) {
  * replace pi screen operator with right javascript operator
  *
  */
-function replacePiWithRoghtOperator() {
+function replacePiWithRightOperator() {
   let piSearch = searchOperator(
     displayExpresionValue,
     String.fromCharCode(960)
