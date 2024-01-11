@@ -27,7 +27,7 @@ let hasOperator = false;
 let answer;
 let isRadian = false;
 let radian = Math.PI / 180;
-const OPERATORS = ["+", "-", "x", String.fromCharCode(247)];
+
 const nthRootformula =
   String.fromCharCode(8718) + String.fromCharCode(8730) + "(";
 const powerSign = String.fromCharCode(9213) + "(";
@@ -153,15 +153,18 @@ function getExponentBase(displayExpresionValue, powerSearchResults, keyword) {
     let previousIndex = powerIndex - 1;
 
     while (previousIndex >= 0) {
-      if (displayExpresionValue[previousIndex] === "(") parenthesisCount--;
-      if (displayExpresionValue[previousIndex] === ")") parenthesisCount++;
-      let isOperator = false;
-      OPERATORS.forEach((OPERATOR) => {
-        if (displayExpresionValue[previousIndex] === OPERATOR)
-          isOperator = true;
-      });
+      if (displayExpresionValue[previousIndex] === "(") {
+        parenthesisCount--;
+      }
+      if (displayExpresionValue[previousIndex] === ")") {
+        parenthesisCount++;
+      }
+
+      let isOperatorCharacter = isOperator(
+        displayExpresionValue[previousIndex]
+      );
       let isPower = displayExpresionValue[previousIndex] === keyword;
-      if ((isOperator && parenthesisCount === 0) || isPower) break;
+      if ((isOperatorCharacter && parenthesisCount === 0) || isPower) return;
 
       base.unshift(displayExpresionValue[previousIndex]);
       previousIndex--;
@@ -170,6 +173,15 @@ function getExponentBase(displayExpresionValue, powerSearchResults, keyword) {
   });
 
   return powerBases;
+}
+
+/**
+ *
+ *check if character of the display value is operator
+ */
+function isOperator(characterOndisplay) {
+  const OPERATORS = ["+", "-", "x", String.fromCharCode(247)];
+  return OPERATORS.includes(characterOndisplay);
 }
 
 /* radian implementation */
