@@ -164,7 +164,9 @@ function getExponentBase(displayExpresionValue, powerSearchResults, keyword) {
         displayExpresionValue[previousIndex]
       );
       let isPower = displayExpresionValue[previousIndex] === keyword;
-      if ((isOperatorCharacter && parenthesisCount === 0) || isPower) return;
+      if ((isOperatorCharacter && parenthesisCount === 0) || isPower) {
+        return;
+      }
 
       base.unshift(displayExpresionValue[previousIndex]);
       previousIndex--;
@@ -226,12 +228,8 @@ function clearAllOnDisplay() {
  */
 function appendFormulaOnDisplay(event) {
   let formulaValue = event.target.getAttribute("formula");
-  if (
-    formulaValue === "²" ||
-    formulaValue === "/" ||
-    formulaValue === nthRootformula ||
-    formulaValue === powerSign
-  ) {
+  const validFormulaValues = ["²", "/", nthRootformula, powerSign];
+  if (validFormulaValues.includes(formulaValue)) {
     if (!displayExpresionValue || displayExpresionValue === "") {
       return "";
     } else {
