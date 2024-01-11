@@ -127,10 +127,10 @@ function appendOperator(event) {
  * @param {string} keyword
  * @returns {array}
  */
-function searchOperator(str, keyword) {
-  let arr = str.split("");
+function searchOperator(displayExpresionValue, keyword) {
+  let displayEpressionArray = displayExpresionValue.split("");
   let searchResults = [];
-  arr.forEach((element, index) => {
+  displayEpressionArray.forEach((element, index) => {
     if (element === keyword) {
       searchResults.push(index);
     }
