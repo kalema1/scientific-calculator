@@ -230,14 +230,12 @@ function appendFormulaOnDisplay(event) {
   let formulaValue = event.target.getAttribute("formula");
   const validFormulaValues = ["²", "/", nthRootformula, powerSign];
   if (validFormulaValues.includes(formulaValue)) {
-    if (!displayExpresionValue || displayExpresionValue === "") {
+    if (!displayExpresionValue) {
       return "";
-    } else {
-      displayExpresionValue += formulaValue;
     }
-  } else {
-    displayExpresionValue += formulaValue;
   }
+  displayExpresionValue += formulaValue;
+
   displayElement.value = displayExpresionValue;
   resultDisplayElement.innerText = "";
 }
