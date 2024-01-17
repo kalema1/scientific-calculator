@@ -82,7 +82,7 @@ redoElement.addEventListener("click", redoOperation);
  * @return {string}
  */
 function appendNumber(event) {
-  /* check dot exists and not to add another */
+  // check dot exists and not to add another
   if (event.target.innerText === "." && !hasDot) {
     hasDot = true;
   } else if (event.target.innerText === "." && hasDot) {
@@ -90,12 +90,12 @@ function appendNumber(event) {
   }
   hasOperator = false;
 
-  /* check if its a first zero */
+  // check if its a first zero
   if (displayExpresionValue === "0") {
     displayExpresionValue = "0";
   }
 
-  /* displayExpresionValue numbers on screen */
+  // displayExpresionValue numbers on screen
   displayExpresionValue += event.target.innerText;
   displayElement.value = displayExpresionValue;
   resultDisplayElement.innerText = "";
@@ -123,7 +123,7 @@ function appendOperator(event) {
 /**
  *returns an array of indexes of keyword that occurred in a string
  *
- * @param {string} str
+ * @param {string} displayExpresionValue
  * @param {string} keyword
  * @returns {array}
  */
@@ -231,7 +231,7 @@ function appendFormulaOnDisplay(event) {
   const validFormulaValues = ["²", "/", nthRootformula, powerSign];
   if (validFormulaValues.includes(formulaValue)) {
     if (!displayExpresionValue) {
-      return "";
+      return;
     }
   }
   displayExpresionValue += formulaValue;
@@ -260,7 +260,11 @@ function appendLeftBracket(event) {
  */
 function calculateResults() {
   try {
-    if (!displayExpresionValue) return;
+    if (!displayExpresionValue) {
+      return;
+    }
+
+    replacenthRootWithRightOperator();
 
     getPowerCalculationResults("²", ",2)");
 
@@ -284,8 +288,6 @@ function calculateResults() {
 
     replacePiWithRightOperator();
 
-    replacenthRootWithRightOperator();
-
     results = eval(displayExpresionValue);
     resultDisplayElement.innerText = results;
     answer = results;
@@ -307,6 +309,8 @@ function getPowerCalculationResults(keywordSignValue, powerNumber) {
     displayExpresionValue,
     keywordSignValue
   );
+  console.log(powerSearchResults);
+
   const bases = getExponentBase(
     displayExpresionValue,
     powerSearchResults,
@@ -369,6 +373,7 @@ function replacenthRootWithRightOperator() {
     nthRootformula
   );
 
+  //console.log(nthRootSearchResults);
   nthRootSearchResults.forEach((element) => {
     const beforeRoot = displayExpresionValue[element - 1];
     const afterRoot = displayExpresionValue[element + 1];
@@ -379,6 +384,7 @@ function replacenthRootWithRightOperator() {
       replacement
     );
   });
+  // console.log(displayExpresionValue);
 }
 
 /**
