@@ -10,7 +10,7 @@
   <body>
     <section class="app-section">
       <div class="app-container">
-        <input type="text" class="display" readonly />
+        <input type="text" class="display" id="display" readonly />
         <div class="result-box" id="result-display"></div>
         <div class="app-inner-box">
           <div class="app-header">
@@ -19,82 +19,109 @@
             <p class="other-function">func</p>
             <div class="rad-deg">
               <label class="switch">
-                <input type="checkbox" class="toggle-checkox" />
+                <input
+                  type="checkbox"
+                  class="toggle-checkox"
+                  id="toggle-checkox"
+                />
                 <span class="slider"
                   ><p class="rad">RAD</p>
                   <p class="deg">DEG</p></span
                 >
               </label>
             </div>
-            <p class="clear-all">clear all</p>
+            <p class="clear-all" id="clear-all">clear all</p>
           </div>
           <div class="app-buttons">
             <div class="app-button-section1">
-              <button class="other-operators square-number" formula="²">
+              <button
+                class="other-operators square-number"
+                formula="²"
+                id="square-number"
+              >
                 a<sup>2</sup>
               </button>
-              <button class="other-operators power" formula="&#9213;(">
+              <button class="other-operators" formula="&#9213;(" id="power">
                 a<sup>b</sup>
               </button>
-              <button class="other-operators magnitude" formula="|(">
+              <button class="other-operators" formula="|(" id="magnitude">
                 |a|
               </button>
-              <button class="other-operators square-root" formula="&#x221A;(">
+              <button
+                class="other-operators"
+                formula="&#x221A;("
+                id="square-root"
+              >
                 &#x221A;
               </button>
               <button
-                class="other-operators nth-root"
+                class="other-operators"
                 formula="&#8718;&#8730;("
+                id="nth-root"
               >
                 <sup>y</sup>&#x221A;
               </button>
-              <button class="other-operators pi" formula="&#x03C0;">
+              <button class="other-operators" formula="&#x03C0;" id="pi">
                 &#x03C0;
               </button>
-              <button class="other-operators trigonometry" formula="sin(">
+              <button
+                class="other-operators trigonometry"
+                formula="sin("
+                id="sin"
+              >
                 sin
               </button>
-              <button class="other-operators trigonometry" formula="cos(">
+              <button
+                class="other-operators trigonometry"
+                formula="cos("
+                id="cos"
+              >
                 cos
               </button>
-              <button class="other-operators trigonometry" formula="tan(">
+              <button
+                class="other-operators trigonometry"
+                formula="tan("
+                id="tan"
+              >
                 tan
               </button>
-              <button class="other-operators left-bracket" formula="(">
+              <button class="other-operators" formula="(" id="left-bracket">
                 (
               </button>
-              <button class="other-operators right-bracket" formula=")">
+              <button class="other-operators" formula=")" id="right-bracket">
                 )
               </button>
-              <button class="other-operators">,</button>
+              <button class="other-operators" id="comma">,</button>
             </div>
             <div class="app-button-section2">
-              <button class="numbers">7</button>
-              <button class="numbers">8</button>
-              <button class="numbers">9</button>
-              <button class="operators">&#247;</button>
-              <button class="numbers">4</button>
-              <button class="numbers">5</button>
-              <button class="numbers">6</button>
-              <button class="operators">x</button>
-              <button class="numbers">1</button>
-              <button class="numbers">2</button>
-              <button class="numbers">3</button>
-              <button class="operators">-</button>
-              <button class="numbers">0</button>
-              <button class="numbers">.</button>
-              <button class="other-operators answer" formula="ans">ans</button>
-              <button class="operators">+</button>
+              <button class="numbers" id="seven">7</button>
+              <button class="numbers" id="eight">8</button>
+              <button class="numbers" id="nine">9</button>
+              <button class="operators" id="divide">&#247;</button>
+              <button class="numbers" id="four">4</button>
+              <button class="numbers" id="five">5</button>
+              <button class="numbers" id="six">6</button>
+              <button class="operators" id="multiply">x</button>
+              <button class="numbers" id="one">1</button>
+              <button class="numbers" id="two">2</button>
+              <button class="numbers" id="three">3</button>
+              <button class="operators" id="minus">-</button>
+              <button class="numbers" id="zero">0</button>
+              <button class="numbers" id="dot">.</button>
+              <button class="other-operators answer" formula="ans" id="answer">
+                ans
+              </button>
+              <button class="operators" id="plus">+</button>
             </div>
             <div class="app-button-section3">
-              <button class="operators">%</button>
+              <button class="operators" id="modulus">%</button>
               <button class="other-operators" id="fraction" formula="/">
                 a/b
               </button>
               <button class="left-shift" id="undo">&#8592;</button>
               <button class="right-shift" id="redo">&#8594;</button>
-              <button class="delete">⌫</button>
-              <button class="equal">=</button>
+              <button class="delete" id="delete">⌫</button>
+              <button class="equal" id="equal">=</button>
             </div>
           </div>
         </div>
