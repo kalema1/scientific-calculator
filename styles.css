@@ -165,8 +165,8 @@ button {
 .numbers:hover,
 .delete:hover,
 .left-shift:hover,
-.right-shift:hover {
-  /* background-color: #e5e7eb; */
+.right-shift:hover,
+.other-operators:hover {
   opacity: 0.8;
 }
 p {
