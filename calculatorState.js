@@ -1,5 +1,5 @@
 // This file to contain the state of my application
-//receives the buttton inpusts
+//receives the buttton inputs
 
 export class CalculatorState {
   constructor(inputButtons) {
